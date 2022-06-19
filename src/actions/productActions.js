@@ -18,10 +18,11 @@ export const getProduct= () => async(dispatch) => {
             payload : data,
         })
     }
-    catch(err){
+    catch(error){
+        console.log(error)
         dispatch({
             type: ALL_PRODUCT_FAIL,
-            payload: err.response.data.message
+            payload: error.response.data.message
         })
     }
 }
