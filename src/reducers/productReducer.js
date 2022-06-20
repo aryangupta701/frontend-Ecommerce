@@ -20,7 +20,7 @@ export const productReducer =(
             case ALL_PRODUCT_SUCCESS: 
                 return {
                     loading: false,
-                    products : action.payload.product,
+                    products : action.payload.products,
                     productCount: action.payload.productCount
                 }
             case ALL_PRODUCT_FAIL: 
