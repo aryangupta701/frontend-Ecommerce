@@ -2,17 +2,25 @@ import React, { Fragment, useEffect } from 'react'
 import Carousel from 'react-material-ui-carousel'
 import {useSelector, useDispatch} from 'react-redux'
 import './ProductDetails.css'
-import {getProductDetails} from '../../actions/productActions'
+import {clearErrors, getProductDetails} from '../../actions/productActions'
 import { useParams } from 'react-router-dom'
 import ReactStars from 'react-rating-stars-component'
+import ReviewCard from './ReviewCard.js'
+import Loader from './../loader/Loader'
+import {useAlert} from 'react-alert'
 
-const ProductDetails = ({match}) => {
+const ProductDetails = () => {
     const dispatch = useDispatch()
+    const alert = useAlert()
     const {id} = useParams()
     const {product,loading,error} = useSelector(state => state.productDetails)
     useEffect(()=>{
+        if(error){
+            alert.error(error)
+            dispatch(clearErrors) 
+        }
         dispatch(getProductDetails(id))
-    },[dispatch,id])
+    },[dispatch,id,alert,error])
     // console.log(id)
     const stars = {
         edit : false, 
@@ -22,12 +30,13 @@ const ProductDetails = ({match}) => {
         isHalf: true,
         size : window.innerWidth < 600 ? 20 : 25
     }
+    // console.log(product.reviews)
     return (
      <Fragment>
-        {product && 
+        {loading ? <Loader /> : 
         <Fragment>
             <div className='productDetails'>
-                <div>
+                <div className='casousel-container'> 
                     <Carousel>
                         {product && product.images &&
                         product.images.map((item,i)=>{
@@ -35,12 +44,12 @@ const ProductDetails = ({match}) => {
                             className='carousel-img'
                             key = {item.URL}
                             src = {item.URL}
-                            alt = {`${i} image`} />
+                            alt = {`${i}-product`} />
                         })
                         }   
                     </Carousel>
                 </div>
-                <div>
+                <div className='details-block'>
                     <div className='details-block-one'>
                         <h2>{product.name}</h2>
                         <p>Product #{product._id}</p>
@@ -75,6 +84,15 @@ const ProductDetails = ({match}) => {
                     </div>
                 </div>
             </div>
+
+            <div className='reviewsHeading'>Reviews</div>
+            {
+                product.reviews && product.reviews[0]? (
+                <div className='review' >
+                    {product.reviews.map(item => <ReviewCard review={item} />)}
+                </div>):
+                (<p className='noReviews'>No Reviews Yet</p>) 
+            }
         </Fragment>
         }
     </Fragment>
