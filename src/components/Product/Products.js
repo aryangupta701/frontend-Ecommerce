@@ -7,11 +7,37 @@ import ProductCard from '../Home/ProductCard'
 import './Product.css'
 import Pagination from 'react-js-pagination'
 import { useParams } from 'react-router-dom'
+import Slider from '@mui/material/Slider'
+import Topography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography'
+
+const categories = [
+    "smartphone",
+    "HeadPhones",
+    "Shoes",
+    "T-Shirts",
+    "Jeans",
+    "Laptops"
+]
 
 const Products = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
-    const {products,loading,error,productCount,resultPerPage} = useSelector(state => state.products)
+    const [price,setPrice] = useState([0,250000])
+    const [category,setCategory] = useState()
+    const priceHandler = (e,newPrice)=>{
+        setPrice(newPrice)
+    }
+
+    const [rating,setRating] = useState(0)
+    const ratingHandler = (e,newRating)=>{
+        setRating(newRating)
+    }
+
+    if(category)
+    console.log(category)
+    const {products,loading,error,productCount,resultPerPage,filteredProductsCount} = useSelector(state => state.products)
+    let count = filteredProductsCount
     const [currentPage,setCurrentPage] = useState(1)
     const setCurrentPageNumber = (event)=>{
         setCurrentPage(event)
@@ -22,9 +48,9 @@ const Products = () => {
             alert.error(error)
             dispatch(clearErrors()) 
         }
-        dispatch(getProduct(keyword,currentPage))
-    },[dispatch,error,alert,keyword,currentPage])
-    console.log(productCount)
+        dispatch(getProduct(keyword,currentPage,price,category,rating))
+    },[dispatch,error,alert,keyword,currentPage,price,category,rating])
+    // console.log(productCount)
   return (
     <Fragment>
         {
@@ -36,7 +62,38 @@ const Products = () => {
                     products.map(item => <ProductCard product={item} key={item._id}/>
                     )}
                 </div>
-                {resultPerPage < productCount && 
+                <div className='filterBox'>
+                    <Typography>Price</Typography>
+                    <Slider 
+                        value={price}
+                        onChange={priceHandler}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="range-slider"
+                        min={0}
+                        max={250000}
+                        />
+                    <Typography>Categories</Typography>
+                    <ul className='categoryBox'>
+                        {categories.map(category => (
+                            <li className='category-link' key={category} onClick={()=>setCategory(category)}>
+                                {category}
+                            </li>
+                        ))}
+                    </ul>
+                    <fieldset >
+                        <Typography component="legend">Ratings Above</Typography>
+                        <Slider 
+                            aria-labelledby="continuous-slider"
+                            min={0}
+                            max={5}
+                            onChange={ratingHandler}
+                            value={rating}
+                            valueLabelDisplay="auto"
+                        />
+                    </fieldset>
+                </div>
+                
+                {resultPerPage < count && 
                     <div className='paginationBox'>
                     <Pagination 
                         activePage={currentPage} 
