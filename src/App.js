@@ -9,6 +9,8 @@ import ProductDetails from './components/Product/ProductDetails.js'
 import Home from './components/Home/Home.js'
 import Products from './components/Product/Products.js'
 import Search from './components/Product/Search.js'
+import Login from './components/user/Login.js'
+
 function App() {
   React.useEffect(()=>{
     webfont.load({
@@ -26,6 +28,8 @@ function App() {
       <Route exact path="/products" element={<Products />} />
       <Route path="/products/:keyword" element={<Products />} />
       <Route exact path="/search" element={<Search />} />
+      <Route exact path="/login" element={<Login />} />
+      <Route exact path="/password/forgot" element={<Login />} />
     </Routes>
     <Footer />
    </Router> 

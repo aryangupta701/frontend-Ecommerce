@@ -21,7 +21,7 @@ export const getProduct= (keyword="",page=1,price=[0,250000],category,rating=0) 
             url = `/api/v1/products?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${rating}`
         }
         const {data} = await axios.get(url);
-        // console.log(data)
+        console.log(data)
         dispatch({
             type: ALL_PRODUCT_SUCCESS,
             payload : data,

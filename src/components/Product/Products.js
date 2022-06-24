@@ -8,8 +8,8 @@ import './Product.css'
 import Pagination from 'react-js-pagination'
 import { useParams } from 'react-router-dom'
 import Slider from '@mui/material/Slider'
-import Topography from '@mui/material/Typography'
 import Typography from '@mui/material/Typography'
+import MetaData from '../layout/MetaData'
 
 const categories = [
     "smartphone",
@@ -43,6 +43,7 @@ const Products = () => {
         setCurrentPage(event)
     }
     const {keyword} = useParams()
+    // console.log(keyword)
     useEffect(()=>{
         if(error){
             alert.error(error)
@@ -51,11 +52,13 @@ const Products = () => {
         dispatch(getProduct(keyword,currentPage,price,category,rating))
     },[dispatch,error,alert,keyword,currentPage,price,category,rating])
     // console.log(productCount)
+    
   return (
     <Fragment>
         {
             loading ? <Loader />: 
             <Fragment>
+                <MetaData title="PRODUCTS -- ECOMMERCE" />
                 <h2 className='productsHeading'>Products</h2>
                 <div className='products'>
                     {
