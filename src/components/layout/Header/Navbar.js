@@ -28,22 +28,22 @@ const Navbar = () => {
             showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"
           }>
           <ul>
-            <li>
+            <li  onClick={() => setShowMediaIcons(!showMediaIcons)} >
               <NavLink to="/">Home</NavLink>
             </li>
-            <li>
+            <li  onClick={() => setShowMediaIcons(!showMediaIcons)}> 
               <NavLink to="/about">About</NavLink>
             </li>
-            <li>
+            <li onClick={() => setShowMediaIcons(!showMediaIcons)}>
               <NavLink to="/products">Products</NavLink>
             </li>
-            <li>
+            <li onClick={() => setShowMediaIcons(!showMediaIcons)}>
               <NavLink to="/contact">Contact</NavLink>
             </li>
-            <li>
+            <li onClick={() => setShowMediaIcons(!showMediaIcons)}>
               <NavLink to="/search">Search</NavLink>
             </li>
-            <li>
+            <li onClick={() => setShowMediaIcons(!showMediaIcons)}> 
               <NavLink to="/login">Login</NavLink>
             </li>
           </ul>

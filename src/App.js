@@ -10,7 +10,10 @@ import Home from './components/Home/Home.js'
 import Products from './components/Product/Products.js'
 import Search from './components/Product/Search.js'
 import Login from './components/user/Login.js'
-
+import store from './store'
+import { loadUser } from './actions/userActions';
+import UserOptions from './components/layout/Header/UserOptions.js'
+import { useSelector } from 'react-redux';
 function App() {
   React.useEffect(()=>{
     webfont.load({
@@ -18,10 +21,13 @@ function App() {
         families : ['Roboto' , 'Droid Sans' , 'Chilanka']
       }
     })
-  }, [])
+    store.dispatch(loadUser())
+  }, [store.dispatch])
+  const {isAuthenticated,user} = useSelector(state => state.user)
   return( 
   <Router>
     <Header />
+    {isAuthenticated && <UserOptions user={user}/> }
     <Routes>
       <Route exact path="/" element={<Home />} />
       <Route exact path="/product/:id" element={<ProductDetails />} />
@@ -30,6 +36,8 @@ function App() {
       <Route exact path="/search" element={<Search />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/password/forgot" element={<Login />} />
+      <Route exact path="/account" element={<Login />} />
+      
     </Routes>
     <Footer />
    </Router> 
