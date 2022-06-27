@@ -10,10 +10,13 @@ import Home from './components/Home/Home.js'
 import Products from './components/Product/Products.js'
 import Search from './components/Product/Search.js'
 import Login from './components/user/Login.js'
+import Profile from './components/user/Profile.js'
 import store from './store'
 import { loadUser } from './actions/userActions';
 import UserOptions from './components/layout/Header/UserOptions.js'
 import { useSelector } from 'react-redux';
+import EditProfile from './components/user/EditProfile.js'
+
 function App() {
   React.useEffect(()=>{
     webfont.load({
@@ -36,8 +39,8 @@ function App() {
       <Route exact path="/search" element={<Search />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/password/forgot" element={<Login />} />
-      <Route exact path="/account" element={<Login />} />
-      
+      {isAuthenticated && <Route exact path="/account" element={<Profile />} />}
+      {isAuthenticated && <Route exact path="/profile/update" element={<EditProfile/>}/>}
     </Routes>
     <Footer />
    </Router> 
