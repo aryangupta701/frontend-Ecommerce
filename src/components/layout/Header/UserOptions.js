@@ -25,7 +25,7 @@ const UserOptions = ({user}) => {
       navigate('/account')
     }
     function logoutUser(){
-      // navigate('/home')
+      navigate('/')
       dispatch(logout())
       alert.success("Logout Successfully")
     }

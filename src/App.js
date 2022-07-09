@@ -16,6 +16,9 @@ import { loadUser } from './actions/userActions';
 import UserOptions from './components/layout/Header/UserOptions.js'
 import { useSelector } from 'react-redux';
 import EditProfile from './components/user/EditProfile.js'
+import UpdatePassword from './components/user/UpdatePassword.js'
+import ForgotPassword from './components/user/ForgotPassword.js'
+import ResetPassword from './components/user/ResetPassword.js'
 
 function App() {
   React.useEffect(()=>{
@@ -38,9 +41,11 @@ function App() {
       <Route path="/products/:keyword" element={<Products />} />
       <Route exact path="/search" element={<Search />} />
       <Route exact path="/login" element={<Login />} />
-      <Route exact path="/password/forgot" element={<Login />} />
+      <Route exact path="/password/reset/:token" element={<ResetPassword />} />
+      <Route exact path="/password/forgot" element={<ForgotPassword />} />
       {isAuthenticated && <Route exact path="/account" element={<Profile />} />}
       {isAuthenticated && <Route exact path="/profile/update" element={<EditProfile/>}/>}
+      {isAuthenticated && <Route exact path="/password/update" element={<UpdatePassword />}/>}
     </Routes>
     <Footer />
    </Router> 
