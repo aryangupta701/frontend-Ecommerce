@@ -19,6 +19,7 @@ import EditProfile from './components/user/EditProfile.js'
 import UpdatePassword from './components/user/UpdatePassword.js'
 import ForgotPassword from './components/user/ForgotPassword.js'
 import ResetPassword from './components/user/ResetPassword.js'
+import Cart from './components/cart/Cart.js'
 
 function App() {
   React.useEffect(()=>{
@@ -43,9 +44,11 @@ function App() {
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/password/reset/:token" element={<ResetPassword />} />
       <Route exact path="/password/forgot" element={<ForgotPassword />} />
+      <Route exact path="/cart" element={<Cart />} />
       {isAuthenticated && <Route exact path="/account" element={<Profile />} />}
       {isAuthenticated && <Route exact path="/profile/update" element={<EditProfile/>}/>}
       {isAuthenticated && <Route exact path="/password/update" element={<UpdatePassword />}/>}
+      
     </Routes>
     <Footer />
    </Router> 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Carousel from 'react-material-ui-carousel'
 import {useSelector, useDispatch} from 'react-redux'
 import './ProductDetails.css'
@@ -9,16 +9,19 @@ import ReviewCard from './ReviewCard.js'
 import Loader from './../loader/Loader'
 import {useAlert} from 'react-alert'
 import MetaData from '../layout/MetaData'
+import { addItemsToCart } from '../../actions/cartActions'
 
 const ProductDetails = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
     const {id} = useParams()
     const {product,loading,error} = useSelector(state => state.productDetails)
+    const {isAuthenticated} = useSelector(state => state.user)
+    const[quantity, setQuantity] = useState(1)
     useEffect(()=>{
         if(error){
             alert.error(error)
-            dispatch(clearErrors) 
+            dispatch(clearErrors()) 
         }
         dispatch(getProductDetails(id))
     },[dispatch,id,alert,error])
@@ -32,6 +35,27 @@ const ProductDetails = () => {
         size : window.innerWidth < 600 ? 20 : 25
     }
     // console.log(product.reviews)
+    const decreaseQuantity = ()=>{
+        if(quantity<=1) return ;
+        setQuantity(prev => prev-1)
+    }
+    const increaseQuantity = ()=>{
+        if(product.stock <= quantity) return;
+        setQuantity(prev => prev+1)
+    }
+    const addToCart = ()=>{
+        if(!isAuthenticated)
+        {
+            alert.error("Please Login to Add to Cart")
+            return
+        }
+        const prod = {  
+            id,
+            quantity
+        }
+        dispatch(addItemsToCart(prod))
+        alert.success("Product Added to Cart Successfully")
+    }
     return (
      <Fragment>
         {loading ? <Loader /> : 
@@ -67,11 +91,11 @@ const ProductDetails = () => {
                         <h1>{`₹${product.price}`}</h1>
                         <div className='details-block-three-one'>
                             <div className='details-block-three-one-one'>
-                                <button>-</button>
-                                <input value="1" type="number"/>
-                                <button>+</button>
+                                <button onClick={decreaseQuantity}>-</button>
+                                <input readOnly value={quantity} type="text"/>
+                                <button onClick={increaseQuantity}>+</button>
                             </div>
-                            {" "}<button className='add-to-cart-button'>Add to Cart</button>
+                            {" "}<button className='add-to-cart-button' onClick={addToCart}>Add to Cart</button>
                             <p>
                                 Status:{" "}
                                 <b className={product.stock < 1 ? 'redColor' : 'greenColor'}>

@@ -60,6 +60,7 @@
     border : none; 
     background-color: rgba(0,0,0,0.616);
     padding: 0.5vmax; 
+    /* margin: 1vmax; */
     cursor: pointer; 
     color: white; 
     transition: all 0.5s;
@@ -72,10 +73,10 @@
 .details-block-three-one-one > input{
     border: none; 
     padding: 0.5vmax; 
-    width: 1vmax;
+    width: 3vmax;
     text-align: center;
     outline: none;
-    font: 400 0.8vmax "Roboto";
+    font: 400 1.2vmax "Roboto";
     color: rgba(0, 0, 0, 0.74);
 }
 

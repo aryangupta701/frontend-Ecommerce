@@ -1,18 +1,19 @@
 import React, { Fragment, useState } from 'react'
-import {SpeedDial,SpeedDialAction,speedDialAction} from '@material-ui/lab'
+import {SpeedDial,SpeedDialAction} from '@material-ui/lab'
 import { GoDashboard } from 'react-icons/go'
 import { BsPerson } from 'react-icons/bs'
-import { MdExitToApp } from 'react-icons/md'
+import { MdExitToApp, MdShoppingCart } from 'react-icons/md'
 import './Header.css'
 import { FaListAlt } from 'react-icons/fa'
 import { useNavigate} from 'react-router-dom'
 import { useAlert } from 'react-alert'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {logout} from '../../../actions/userActions'
 import Backdrop from '@material-ui/core/Backdrop'
 const UserOptions = ({user}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const {cartItems} = useSelector(state=> state.cart)
 
     const alert = useAlert()
     function dashboard(){
@@ -24,6 +25,9 @@ const UserOptions = ({user}) => {
     function account(){
       navigate('/account')
     }
+    function cart(){
+      navigate('/cart')
+    }
     function logoutUser(){
       navigate('/')
       dispatch(logout())
@@ -33,6 +37,7 @@ const UserOptions = ({user}) => {
     const options = [
       {icon: <FaListAlt/>, name:"orders" , func: orders},
       {icon: <BsPerson/>, name:"Profile" , func: account},
+      {icon: <MdShoppingCart style={{color: cartItems.length>0 ? "tomato" : "unset"}}/>, name:`Cart (${cartItems.length})` , func: cart},
       {icon: <MdExitToApp />, name:"Logout" , func: logoutUser}
     ]
     if(user.role == "admin"){

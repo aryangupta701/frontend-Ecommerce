@@ -8,9 +8,11 @@ import {
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
+  const {isAuthenticated} = useSelector(state => state.user)
   return (
     <>
       <nav className="main-nav">
@@ -43,9 +45,11 @@ const Navbar = () => {
             <li onClick={() => setShowMediaIcons(!showMediaIcons)}>
               <NavLink to="/search">Search</NavLink>
             </li>
+            {!isAuthenticated && 
             <li onClick={() => setShowMediaIcons(!showMediaIcons)}> 
-              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/login">Login</NavLink> 
             </li>
+            }
           </ul>
         </div>
 
