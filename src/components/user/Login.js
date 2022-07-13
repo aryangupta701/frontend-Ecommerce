@@ -1,6 +1,6 @@
 import React, { Fragment, useRef,useState,useEffect } from 'react'
 import { MdFace, MdLockOpen, MdMailOutline } from 'react-icons/md'
-import { Link ,useNavigate} from 'react-router-dom'
+import { Link ,useLocation,useNavigate} from 'react-router-dom'
 import Loader from '../loader/Loader'
 import './Login.css'
 import {useDispatch,useSelector} from 'react-redux'
@@ -9,6 +9,7 @@ import {useAlert} from 'react-alert'
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    const location =  useLocation()
     const alert = useAlert()
     const {error,loading,isAuthenticated} = useSelector(state => state.user)
     const [loginEmail, setLoginEmail] = useState()
@@ -18,6 +19,8 @@ const Login = () => {
         email : "",
         password : ""
     })
+    // console.log(location)
+    const redirect = location.search ? `/${location.search.split("=")[1]}` : "/account"
     const [avatar,setAvatar] = useState()
     const [avatarPreview,setAvatarPreview] = useState("/profile.png")
     useEffect(() => {
@@ -26,7 +29,7 @@ const Login = () => {
         dispatch(clearErrors())
       }
       if(isAuthenticated){
-        navigate('/account')
+        navigate(redirect)
       }
     }, [error,dispatch,alert,isAuthenticated,navigate])
     

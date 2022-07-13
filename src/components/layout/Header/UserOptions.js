@@ -10,11 +10,11 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import {logout} from '../../../actions/userActions'
 import Backdrop from '@material-ui/core/Backdrop'
-const UserOptions = ({user}) => {
+const UserOptions = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {cartItems} = useSelector(state=> state.cart)
-
+    const {user} = useSelector(state => state.user)
     const alert = useAlert()
     function dashboard(){
       navigate('/dashboard')

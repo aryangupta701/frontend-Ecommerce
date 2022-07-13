@@ -2,7 +2,7 @@ import './App.css';
 import Header from './components/layout/Header/Header.js';
 import {BrowserRouter as Router,Route,Routes} from 'react-router-dom';
 import webfont from 'webfontloader'
-import React from 'react'
+import React, { useState } from 'react'
 import Footer from './components/layout/Footer/Footer.js';
 import './components/layout/Footer/Footer.css'
 import ProductDetails from './components/Product/ProductDetails.js'
@@ -20,8 +20,20 @@ import UpdatePassword from './components/user/UpdatePassword.js'
 import ForgotPassword from './components/user/ForgotPassword.js'
 import ResetPassword from './components/user/ResetPassword.js'
 import Cart from './components/cart/Cart.js'
+import Shipping from './components/cart/Shipping.js'
+import ConfirmOrder from './components/cart/ConfirmOrder.js'
+import axios from 'axios';
+import Payment from './components/cart/Payment.js'
+import ProtectedPayment from './components/cart/ProtectedPayment.js'
+
 
 function App() {
+
+  const [stripeApiKey, setStripeApiKey] = useState("")
+  async function getStripeApiKey(){
+    const {data} = await axios.get('/api/v1/stripeApiKey')
+    setStripeApiKey(`${data.stripeApiKey}`)
+  }
   React.useEffect(()=>{
     webfont.load({
       google :{
@@ -29,12 +41,14 @@ function App() {
       }
     })
     store.dispatch(loadUser())
+    getStripeApiKey()
   }, [store.dispatch])
+  // console.log(stripeApiKey)
   const {isAuthenticated,user} = useSelector(state => state.user)
   return( 
   <Router>
     <Header />
-    {isAuthenticated && <UserOptions user={user}/> }
+    {isAuthenticated && <UserOptions /> }
     <Routes>
       <Route exact path="/" element={<Home />} />
       <Route exact path="/product/:id" element={<ProductDetails />} />
@@ -48,7 +62,11 @@ function App() {
       {isAuthenticated && <Route exact path="/account" element={<Profile />} />}
       {isAuthenticated && <Route exact path="/profile/update" element={<EditProfile/>}/>}
       {isAuthenticated && <Route exact path="/password/update" element={<UpdatePassword />}/>}
-      
+      {isAuthenticated && <Route exact path="/shipping" element={<Shipping />}/>}
+      {isAuthenticated && <Route exact path="/order/confirm" element={<ConfirmOrder />}/>}
+      {/* <Elements stripe={loadStripe(stripeApiKey)}> */}
+      {isAuthenticated && <Route exact path="/process/payment" element={<ProtectedPayment stripeKey={stripeApiKey}/>}/>}
+      {/* </Elements> */}
     </Routes>
     <Footer />
    </Router> 

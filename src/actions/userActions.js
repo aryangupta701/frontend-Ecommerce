@@ -30,7 +30,7 @@ import {
 export const login = (email,password)=>async(dispatch)=>{
     try{
         dispatch({type: LOGIN_REQUEST})
-        const url = '/api/v1/login/';
+        const url = '/api/v1/login';
         const config = {
             headers : {
                 "content-type" : "application/json"

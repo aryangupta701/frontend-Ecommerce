@@ -3,7 +3,7 @@ import React, { Fragment } from 'react'
 import { useAlert } from 'react-alert'
 import { MdRemoveShoppingCart, MdShoppingBasket } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { addItemsToCart, removeCartItem } from '../../actions/cartActions'
 import './Cart.css'
 import CartItemCard from './CartItemCard.js'
@@ -11,27 +11,27 @@ import CartItemCard from './CartItemCard.js'
 const Cart = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
+    const navigate = useNavigate()
     const {cartItems} = useSelector(state => state.cart)
     const deleteItem = (id)=>{
         dispatch(removeCartItem(id))
+        alert.success("Removed Item Successfully")
     }
     const decreaseQuantity = (id,quantity,stock) => {
         if(quantity == 1){
-            deleteItem(id)
-            alert.success("Removed Item Successfully")
             return ;
         } 
         dispatch(addItemsToCart({id,quantity: quantity-1}))
     }
     const increaseQuantity = (id,quantity,stock) => {
         if(quantity == stock) {
-            alert.success("Stock Empty !!")
+            alert.success("Order Limit Reached !!")
             return ;
         } 
         dispatch(addItemsToCart({id,quantity: quantity+1}))
     }
     const checkoutHandler = ()=>{
-
+        navigate('/login?redirect=shipping')
     }
 
   return (<Fragment>{
