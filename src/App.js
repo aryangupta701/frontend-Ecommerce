@@ -25,7 +25,9 @@ import ConfirmOrder from './components/cart/ConfirmOrder.js'
 import axios from 'axios';
 import Payment from './components/cart/Payment.js'
 import ProtectedPayment from './components/cart/ProtectedPayment.js'
-
+import Success from './components/cart/Success.js'
+import MyOrders from './components/Order/MyOrders.js'
+import OrderDetails from './components/Order/OrderDetails.js'
 
 function App() {
 
@@ -64,6 +66,9 @@ function App() {
       {isAuthenticated && <Route exact path="/password/update" element={<UpdatePassword />}/>}
       {isAuthenticated && <Route exact path="/shipping" element={<Shipping />}/>}
       {isAuthenticated && <Route exact path="/order/confirm" element={<ConfirmOrder />}/>}
+      {isAuthenticated && <Route exact path="/success" element={<Success />}/>}
+      {isAuthenticated && <Route exact path="/orders" element={<MyOrders />}/>}
+      {isAuthenticated && <Route exact path="/order/:id" element={<OrderDetails />}/>}
       {/* <Elements stripe={loadStripe(stripeApiKey)}> */}
       {isAuthenticated && <Route exact path="/process/payment" element={<ProtectedPayment stripeKey={stripeApiKey}/>}/>}
       {/* </Elements> */}
