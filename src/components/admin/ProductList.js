@@ -60,6 +60,13 @@ const ProductList = () => {
       headerName: "Name",
       minWidth: 200,
       flex: 1,
+      renderCell: (params) => {
+        return (
+            <Link to={`/product/${params.getValue(params.id, "id")}`}>
+              {params.getValue(params.id,"name")}
+            </Link>
+        );
+      },
     },
     {
       field: "stock",

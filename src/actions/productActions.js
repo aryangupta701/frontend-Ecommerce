@@ -1,5 +1,4 @@
 import axios from "axios";
-import { DELETE_ORDER_REQUEST } from "../constants/orderConstant";
 
 import { 
     ALL_PRODUCT_FAIL, 
@@ -20,7 +19,10 @@ import {
     NEW_PRODUCT_FAIL,
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_FAIL,
-    DELETE_PRODUCT_REQUEST
+    DELETE_PRODUCT_REQUEST,
+    UPDATE_PRODUCT_REQUEST,
+    UPDATE_PRODUCT_SUCCESS,
+    UPDATE_PRODUCT_FAIL
     } from "../constants/productConstant";
 
 export const getProduct= (keyword="",page=1,price=[0,250000],category,rating=0) => async(dispatch) => {
@@ -162,6 +164,31 @@ export const deleteProduct= (id) => async(dispatch) => {
     }
 }
 
+export const updateProduct= (id,product) => async(dispatch) => {
+    try{
+        dispatch({
+            type : UPDATE_PRODUCT_REQUEST
+        })
+        const config = {
+            headers: {
+                "Content-Type" : "application/json"
+            }
+        }
+        console.log(product)
+        const {data} = await axios.put(`/api/v1/admin/product/${id}`,product,config);
+        // console.log(data)
+        dispatch({
+            type: UPDATE_PRODUCT_SUCCESS,
+            payload : data.success
+        })
+    }
+    catch(error){
+        dispatch({
+            type: UPDATE_PRODUCT_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
 export const clearErrors = () => async(dispatch) => {
     dispatch({

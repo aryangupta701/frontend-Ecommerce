@@ -34,6 +34,7 @@ import ProductList from './components/admin/ProductList.js'
 import About from './components/layout/About/About'
 import Contact from './components/layout/Contact/Contact.js'
 import NewProduct from './components/admin/NewProduct';
+import UpdateProduct from './components/admin/UpdateProduct.js'
 
 function App() {
   // localStorage.clear()
@@ -83,6 +84,7 @@ function App() {
       <Route element={<ProtectedRoute isAdmin={true}/>}>
         <Route exact path="/admin/dashboard" element={<AdminDashBoard />}/>
         <Route exact path="/admin/product" element={<NewProduct />}/>
+        <Route exact path="/admin/product/:id" element={<UpdateProduct />}/>
         <Route exact path="/admin/products" element={<ProductList />}/>
       </Route>
     </Routes>
