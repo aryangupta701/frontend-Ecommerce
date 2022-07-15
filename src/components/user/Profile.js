@@ -13,6 +13,7 @@ const Profile = () => {
             navigate("/login")
         }
     },[navigate,isAuthenticated])
+    console.log(user)
   return (
     <Fragment>
         {loading ? <Loader /> :

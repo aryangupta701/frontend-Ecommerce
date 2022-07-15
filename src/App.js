@@ -28,9 +28,10 @@ import ProtectedPayment from './components/cart/ProtectedPayment.js'
 import Success from './components/cart/Success.js'
 import MyOrders from './components/Order/MyOrders.js'
 import OrderDetails from './components/Order/OrderDetails.js'
+import ProtectedRoute from './components/routes/ProtectedRoute';
 
 function App() {
-
+  // localStorage.clear()
   const [stripeApiKey, setStripeApiKey] = useState("")
   async function getStripeApiKey(){
     const {data} = await axios.get('/api/v1/stripeApiKey')
@@ -61,17 +62,18 @@ function App() {
       <Route exact path="/password/reset/:token" element={<ResetPassword />} />
       <Route exact path="/password/forgot" element={<ForgotPassword />} />
       <Route exact path="/cart" element={<Cart />} />
-      {isAuthenticated && <Route exact path="/account" element={<Profile />} />}
-      {isAuthenticated && <Route exact path="/profile/update" element={<EditProfile/>}/>}
-      {isAuthenticated && <Route exact path="/password/update" element={<UpdatePassword />}/>}
-      {isAuthenticated && <Route exact path="/shipping" element={<Shipping />}/>}
-      {isAuthenticated && <Route exact path="/order/confirm" element={<ConfirmOrder />}/>}
-      {isAuthenticated && <Route exact path="/success" element={<Success />}/>}
-      {isAuthenticated && <Route exact path="/orders" element={<MyOrders />}/>}
-      {isAuthenticated && <Route exact path="/order/:id" element={<OrderDetails />}/>}
-      {/* <Elements stripe={loadStripe(stripeApiKey)}> */}
-      {isAuthenticated && <Route exact path="/process/payment" element={<ProtectedPayment stripeKey={stripeApiKey}/>}/>}
-      {/* </Elements> */}
+      <Route element={<ProtectedRoute  />} >
+        <Route exact path="/account" element={<Profile />} />
+        <Route exact path="/profile/update" element={<EditProfile/>}/>
+        <Route exact path="/password/update" element={<UpdatePassword />}/>
+        <Route exact path="/shipping" element={<Shipping />}/>
+        <Route exact path="/order/confirm" element={<ConfirmOrder />}/>
+        <Route exact path="/success" element={<Success />}/>
+        <Route exact path="/orders" element={<MyOrders />}/>
+        <Route exact path="/order/:id" element={<OrderDetails />}/>
+        <Route exact path="/process/payment" element={<ProtectedPayment stripeKey={stripeApiKey}/>}/>
+      </Route>
+    
     </Routes>
     <Footer />
    </Router> 

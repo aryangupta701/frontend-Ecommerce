@@ -95,7 +95,7 @@ const ProductDetails = () => {
                                 <input readOnly value={quantity} type="text"/>
                                 <button onClick={increaseQuantity}>+</button>
                             </div>
-                            {" "}<button className='add-to-cart-button' onClick={addToCart}>Add to Cart</button>
+                            {" "}<button disable={product.stock<1?true:false} className='add-to-cart-button' onClick={addToCart}>Add to Cart</button>
                             <p>
                                 Status:{" "}
                                 <b className={product.stock < 1 ? 'redColor' : 'greenColor'}>

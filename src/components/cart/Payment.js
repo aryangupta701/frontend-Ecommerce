@@ -11,6 +11,7 @@ import { useAlert } from 'react-alert'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { clearErrors, createOrder } from '../../actions/orderActions'
+import { clearCart } from '../../actions/cartActions'
 
 const Payment = () => {
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo') )
@@ -78,7 +79,7 @@ const Payment = () => {
                 };
                 // console.log(order)
                 dispatch(createOrder(order));
-
+                dispatch(clearCart())
                 navigate("/success")
             }
 

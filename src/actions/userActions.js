@@ -37,7 +37,7 @@ export const login = (email,password)=>async(dispatch)=>{
             }
         }
         const {data} = await axios.post(url,{email,password},config)
-        dispatch({type: LOGIN_SUCCESS, payload: data})
+        dispatch({type: LOGIN_SUCCESS, payload: data.user})
     }
     catch(error){
         dispatch({type:LOGIN_FAIL, payload: error.response.data.message})

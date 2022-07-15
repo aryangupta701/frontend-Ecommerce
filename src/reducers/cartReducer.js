@@ -1,8 +1,12 @@
-import { ADD_TO_CART , REMOVE_CART_ITEM, SAVE_SHIPPING_DETAILS} from "../constants/cartConstant"
+import { ADD_TO_CART , CLEAR_CART_ITEMS, REMOVE_CART_ITEM, SAVE_SHIPPING_DETAILS} from "../constants/cartConstant"
 export const cartReducer =(
     (state = {cartItems : [], shippingInfo:{}}, 
     action) => {
         switch(action.type){
+            case CLEAR_CART_ITEMS: return {
+                ...state, 
+                cartItems : []
+            }
             case ADD_TO_CART: 
             const item = action.payload
             const isPresent = state.cartItems.find((i)=>i.id == item.id)
@@ -35,10 +39,3 @@ export const cartReducer =(
             default : return state;
         }
 })
-
-export const orderReducer = (
-    (state = {}, action) => {
-        // case 
-        return state
-    }
-)

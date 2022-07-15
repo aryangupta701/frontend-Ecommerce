@@ -70,6 +70,7 @@ const Login = () => {
         event.preventDefault()
         dispatch(login(loginEmail,loginPassword))
     }
+    
     const switchTabs = (e,type) => {
         if(type === "Login"){
             switcherTab.current.classList.add("shiftToNeutral")
