@@ -80,6 +80,7 @@
 
 .productCard>img{
     width: 14vmax;
+    /* height: 18vmax; */
 }
 .productCard>div{
     margin : 0.5vmax;

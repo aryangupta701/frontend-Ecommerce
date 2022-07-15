@@ -30,6 +30,10 @@ import MyOrders from './components/Order/MyOrders.js'
 import OrderDetails from './components/Order/OrderDetails.js'
 import ProtectedRoute from './components/routes/ProtectedRoute';
 import AdminDashBoard from './components/admin/AdminDashBoard.js';
+import ProductList from './components/admin/ProductList.js'
+import About from './components/layout/About/About'
+import Contact from './components/layout/Contact/Contact.js'
+import NewProduct from './components/admin/NewProduct';
 
 function App() {
   // localStorage.clear()
@@ -57,13 +61,15 @@ function App() {
       <Route exact path="/" element={<Home />} />
       <Route exact path="/product/:id" element={<ProductDetails />} />
       <Route exact path="/products" element={<Products />} />
+      <Route exact path="/about" element={<About />} />
+      <Route exact path="/contact" element={<Contact />} />
       <Route path="/products/:keyword" element={<Products />} />
       <Route exact path="/search" element={<Search />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/password/reset/:token" element={<ResetPassword />} />
       <Route exact path="/password/forgot" element={<ForgotPassword />} />
       <Route exact path="/cart" element={<Cart />} />
-      <Route element={<ProtectedRoute  />} >
+      <Route element={<ProtectedRoute isAdmin={false} />} >
         <Route exact path="/account" element={<Profile />} />
         <Route exact path="/profile/update" element={<EditProfile/>}/>
         <Route exact path="/password/update" element={<UpdatePassword />}/>
@@ -72,10 +78,13 @@ function App() {
         <Route exact path="/success" element={<Success />}/>
         <Route exact path="/orders" element={<MyOrders />}/>
         <Route exact path="/order/:id" element={<OrderDetails />}/>
-        <Route exact path="/admin/dashboard" element={<AdminDashBoard />}/>
         <Route exact path="/process/payment" element={<ProtectedPayment stripeKey={stripeApiKey}/>}/>
       </Route>
-    
+      <Route element={<ProtectedRoute isAdmin={true}/>}>
+        <Route exact path="/admin/dashboard" element={<AdminDashBoard />}/>
+        <Route exact path="/admin/product" element={<NewProduct />}/>
+        <Route exact path="/admin/products" element={<ProductList />}/>
+      </Route>
     </Routes>
     <Footer />
    </Router> 

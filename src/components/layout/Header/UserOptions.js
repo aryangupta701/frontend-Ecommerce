@@ -17,7 +17,7 @@ const UserOptions = () => {
     const {user} = useSelector(state => state.user)
     const alert = useAlert()
     function dashboard(){
-      navigate('/dashboard')
+      navigate('/admin/dashboard')
     }
     function orders(){
       navigate('/orders')

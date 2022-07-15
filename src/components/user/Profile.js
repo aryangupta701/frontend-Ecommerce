@@ -6,14 +6,13 @@ import Loader from '../loader/Loader'
 import "./Profile.css"
 const Profile = () => {
     const {user,loading,isAuthenticated} = useSelector(state => state.user)
-    const navigate = useNavigate()
-    
+    const navigate = useNavigate() 
     useEffect(()=>{
         if(isAuthenticated === false){
             navigate("/login")
         }
     },[navigate,isAuthenticated])
-    console.log(user)
+    // console.log(user)
   return (
     <Fragment>
         {loading ? <Loader /> :
