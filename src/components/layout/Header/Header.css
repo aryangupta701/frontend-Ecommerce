@@ -10,6 +10,11 @@
     border-radius: 100%;
   }
 
+  .MuiFab-root {
+    font-size: 1.4vmax !important;
+  }
+  
+ 
  @media screen and (max-width: 600px) {
     .speedDial{
       top: 7vmax;

@@ -29,6 +29,7 @@ import Success from './components/cart/Success.js'
 import MyOrders from './components/Order/MyOrders.js'
 import OrderDetails from './components/Order/OrderDetails.js'
 import ProtectedRoute from './components/routes/ProtectedRoute';
+import AdminDashBoard from './components/admin/AdminDashBoard.js';
 
 function App() {
   // localStorage.clear()
@@ -71,6 +72,7 @@ function App() {
         <Route exact path="/success" element={<Success />}/>
         <Route exact path="/orders" element={<MyOrders />}/>
         <Route exact path="/order/:id" element={<OrderDetails />}/>
+        <Route exact path="/admin/dashboard" element={<AdminDashBoard />}/>
         <Route exact path="/process/payment" element={<ProtectedPayment stripeKey={stripeApiKey}/>}/>
       </Route>
     

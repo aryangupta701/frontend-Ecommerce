@@ -111,11 +111,13 @@
   .details-block-four {
     color: rgba(0, 0, 0, 0.897);
     font: 500 1.2vmax sans-serif;
+
   }
   
   .details-block-four > p {
     color: rgba(0, 0, 0, 0.534);
     font: 300 0.8vmax sans-serif;
+    margin-top: 1vh;
   }
   
   .submit-button {

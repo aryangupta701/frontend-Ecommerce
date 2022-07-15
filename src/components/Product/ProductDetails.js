@@ -2,37 +2,69 @@ import React, { Fragment, useEffect, useState } from 'react'
 import Carousel from 'react-material-ui-carousel'
 import {useSelector, useDispatch} from 'react-redux'
 import './ProductDetails.css'
-import {clearErrors, getProductDetails} from '../../actions/productActions'
+import {clearErrors, getProductDetails, newReview} from '../../actions/productActions'
 import { useParams } from 'react-router-dom'
-import ReactStars from 'react-rating-stars-component'
 import ReviewCard from './ReviewCard.js'
 import Loader from './../loader/Loader'
 import {useAlert} from 'react-alert'
 import MetaData from '../layout/MetaData'
 import { addItemsToCart } from '../../actions/cartActions'
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Button,
+    Rating
+} from '@mui/material'
+import { NEW_REVIEW_RESET } from '../../constants/productConstant'
 
 const ProductDetails = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
     const {id} = useParams()
     const {product,loading,error} = useSelector(state => state.productDetails)
-    const {isAuthenticated} = useSelector(state => state.user)
+    const {isAuthenticated,user} = useSelector(state => state.user)
     const[quantity, setQuantity] = useState(1)
+    const[open, setOpen] = useState(false)
+    const[rating, setRating] = useState(0)
+    const [comment, setComment] = useState("")
+    const {success, error: reviewError} = useSelector(state=> state.newReview)
+
     useEffect(()=>{
         if(error){
             alert.error(error)
             dispatch(clearErrors()) 
         }
+        if(reviewError){
+            alert.error(reviewError)
+            dispatch(clearErrors()) 
+        }
+        if(success){
+            alert.success("Review Submitted Successfully")
+            dispatch({type: NEW_REVIEW_RESET})
+        }
         dispatch(getProductDetails(id))
-    },[dispatch,id,alert,error])
+    },[dispatch,id,alert,error,reviewError,success])
     // console.log(id)
+    const submitReviewToggle = ()=>{
+        setOpen(prev => !prev )
+    }
+    const reviewSubmitHandler = ()=>{
+        const data = {
+            productId : id, 
+            rating, 
+            comment,
+            user
+        }
+        dispatch(newReview(data))
+        submitReviewToggle()
+    }
     const stars = {
-        edit : false, 
-        color : "rgba(20,20,20,0,1)",
-        activeColor: "tomato",
         value:product && product.ratings,
-        isHalf: true,
-        size : window.innerWidth < 600 ? 20 : 25
+        precision: 0.5,
+        size : "large",
+        readOnly: true
     }
     // console.log(product.reviews)
     const decreaseQuantity = ()=>{
@@ -81,7 +113,7 @@ const ProductDetails = () => {
                         <p>Product #{product._id}</p>
                     </div>
                     <div className='details-block-two'>
-                        <ReactStars {...stars} />
+                        <Rating {...stars} />
                         <span className="detailsBlock-2-span">
                             {" "}
                             ({product.numOfReviews} Reviews)
@@ -96,6 +128,7 @@ const ProductDetails = () => {
                                 <button onClick={increaseQuantity}>+</button>
                             </div>
                             {" "}<button disable={product.stock<1?true:false} className='add-to-cart-button' onClick={addToCart}>Add to Cart</button>
+                        </div>
                             <p>
                                 Status:{" "}
                                 <b className={product.stock < 1 ? 'redColor' : 'greenColor'}>
@@ -106,12 +139,41 @@ const ProductDetails = () => {
                         <div className='details-block-four'>
                             Description : <p>{product.description}</p>
                         </div>
-                        <button className='submit-button'>Submit Review</button>
-                    </div>
+                        <button onClick={submitReviewToggle} className='submit-button'>Submit Review</button>
                 </div>
             </div>
 
             <div className='reviewsHeading'>Reviews</div>
+                <Dialog
+                aria-labelledby="simple-dialog-title"
+                open={open}
+                onClose={submitReviewToggle}
+                >
+                <DialogTitle>Submit Review</DialogTitle>
+                <DialogContent className="submitDialog">
+                <Rating
+                    onChange={(e) => setRating(e.target.value)}
+                    value={rating}
+                    size="large"
+                />
+
+                <textarea
+                    className="submitDialogTextArea"
+                    cols="30"
+                    rows="5"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                ></textarea>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={submitReviewToggle} color="secondary">
+                    Cancel
+                </Button>
+                <Button onClick={reviewSubmitHandler} color="primary">
+                    Submit
+                </Button>
+                </DialogActions>
+            </Dialog>
             {
                 product.reviews && product.reviews[0]? (
                 <div className='review' >
