@@ -1,7 +1,7 @@
 import React, { Fragment,useState,useEffect } from 'react'
 import { MdFace, MdMailOutline } from 'react-icons/md'
 import { useNavigate} from 'react-router-dom'
-import Loader from '../loader/Loader'
+import Loader from '../layout/loader/Loader'
 import './UpdateProfile.css'
 import {useDispatch,useSelector} from 'react-redux'
 import { updateProfile , clearErrors, loadUser} from '../../actions/userActions'

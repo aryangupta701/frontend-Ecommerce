@@ -1,7 +1,7 @@
 import React, { useEffect,Fragment, useState } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { clearErrors,getProduct } from '../../actions/productActions'
-import Loader from '../loader/Loader'
+import Loader from '../layout/loader/Loader'
 import { useAlert } from 'react-alert'
 import ProductCard from '../Home/ProductCard'
 import './Product.css'

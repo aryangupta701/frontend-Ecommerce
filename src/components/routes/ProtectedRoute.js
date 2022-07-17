@@ -1,7 +1,6 @@
-import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, Navigate, Route } from "react-router-dom";
-import Loader from "../loader/Loader";
+import { Outlet, Navigate } from "react-router-dom";
+import Loader from "../layout/loader/Loader";
 
 const ProtectedRoute = ({ isAdmin}) => {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
@@ -11,7 +10,7 @@ const ProtectedRoute = ({ isAdmin}) => {
       return <Navigate to="/login" />;
     }
     if (isAdmin === true && user.role !== "admin") {
-      console.log(user)
+      // console.log(user)
       return <Navigate to="/login" />;
     }
     return <Outlet />

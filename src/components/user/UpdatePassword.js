@@ -1,5 +1,5 @@
 import "./UpdatePassword.css"
-import Loader from "../loader/Loader"
+import Loader from "../layout/loader/Loader"
 import React, { Fragment, useEffect,useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { useAlert } from "react-alert"

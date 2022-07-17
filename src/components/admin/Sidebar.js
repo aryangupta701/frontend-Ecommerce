@@ -44,7 +44,7 @@ const Sidebar = () => {
                 <FcAddDatabase /> Create Product
             </p>
         </Link>
-        <Link to='/admin/order'>
+        <Link to='/admin/orders'>
             <p>
                 <FaListAlt /> Orders
             </p>

@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react'
 import './MyOrders.css'
 import {DataGrid} from '@material-ui/data-grid'
 import MetaData from '../layout/MetaData'
-import Loader from '../loader/Loader'
+import Loader from '../layout/loader/Loader'
 import { Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from 'react-alert'
@@ -41,7 +41,7 @@ const MyOrders = () => {
           field: "amount",
           headerName: "Amount",
           type: "number",
-          minWidth: 270,
+          minWidth: 150,
           flex: 0.5,
         },
     

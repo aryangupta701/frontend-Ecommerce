@@ -1,11 +1,11 @@
 import './ResetPassword.css'
 import "./UpdatePassword.css"
-import Loader from "../loader/Loader"
+import Loader from "../layout/loader/Loader"
 import React, { Fragment, useEffect,useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { useAlert } from "react-alert"
 import { clearErrors, resetPassword } from "../../actions/userActions"
-import { MdLock, MdLockOpen, MdVpnKey } from "react-icons/md"
+import { MdLock, MdLockOpen } from "react-icons/md"
 import MetaData from "../layout/MetaData"
 import { useNavigate, useParams } from "react-router-dom"
  
@@ -43,7 +43,7 @@ import { useNavigate, useParams } from "react-router-dom"
         alert.success("Password Updated Successfully")
         navigate("/login")
     }
-   },[dispatch,alert,error,success])
+   },[dispatch,alert,error,success,navigate])
 
    return (
        <Fragment>

@@ -5,13 +5,13 @@ import ProductCard from './ProductCard.js'
 import MetaData from '../layout/MetaData'
 import { clearErrors, getProduct } from '../../actions/productActions'
 import { useSelector, useDispatch } from 'react-redux'
-import Loader from '../loader/Loader'
+import Loader from '../layout/loader/Loader'
 import {useAlert} from 'react-alert'
 
 const Home = () => {
     const alert = useAlert()
     const dispatch = useDispatch()
-    const {products,error,loading,productCount} = useSelector(state => state.products)
+    const {products,error,loading} = useSelector(state => state.products)
     useEffect(()=>{
         if(error){
             alert.error(error)

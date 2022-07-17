@@ -1,11 +1,12 @@
 import React, { Fragment, useRef,useState,useEffect } from 'react'
 import { MdFace, MdLockOpen, MdMailOutline } from 'react-icons/md'
 import { Link ,useLocation,useNavigate} from 'react-router-dom'
-import Loader from '../loader/Loader'
+import Loader from '../layout/loader/Loader'
 import './Login.css'
 import {useDispatch,useSelector} from 'react-redux'
 import { login,clearErrors, register } from '../../actions/userActions'
 import {useAlert} from 'react-alert'
+import { CLEAR_CART_ITEMS } from '../../constants/cartConstant'
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Login = () => {
       if(isAuthenticated){
         navigate(redirect)
       }
-    }, [error,dispatch,alert,isAuthenticated,navigate])
+    }, [error,dispatch,alert,isAuthenticated,navigate,redirect])
     
     const {name,email,password} = user
 
@@ -45,6 +46,8 @@ const Login = () => {
         myForm.set("email",email)
         myForm.set("password",password)
         myForm.set("avatar",avatar)
+        dispatch({type: CLEAR_CART_ITEMS})
+        localStorage.clear()
         dispatch(register(myForm))
     }
     const registerDataChange =(e)=>{
@@ -68,6 +71,8 @@ const Login = () => {
     }
     const loginSubmit = (event)=>{
         event.preventDefault()
+        localStorage.clear()
+        dispatch({type: CLEAR_CART_ITEMS})
         dispatch(login(loginEmail,loginPassword))
     }
     

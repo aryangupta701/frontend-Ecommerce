@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import Sidebar from './Sidebar.js'
 import './AdminDashBoard.css' 
 import { Typography } from '@mui/material'
@@ -9,16 +9,32 @@ import { useDispatch, useSelector } from 'react-redux'
 import {Doughnut,Line} from 'react-chartjs-2'
 import {CategoryScale} from 'chart.js'; 
 import { getAdminProduct } from '../../actions/productActions.js'
+import { getAllOrders } from '../../actions/orderActions.js'
+import { getAllUsers } from '../../actions/userActions.js'
+import Loader from '../layout/loader/Loader.js'
 
 const AdminDashBoard = () => {
     Chart.register(CategoryScale);
     const dispatch = useDispatch()
-    // const {users,products,orders} = useSelector(state => state.user)
-    useEffect(()=>{
-      dispatch(getAdminProduct());
-    },[dispatch])
+    const {error: allOrdersError, loading, orders} = useSelector(state => state.allOrders)
+    const {error,products,loading: productLoading} = useSelector(state => state.products)
+    const{error: userError, users, loading: userLoading} = useSelector(state => state.allUsers)
 
-    const {error,products} = useSelector(state=> state.products)
+    useEffect(()=>{
+      if(error){
+        alert.error(error)
+      }
+      if(allOrdersError){
+        alert.error(allOrdersError)
+      }
+      if(userError){
+        alert.error(userError)
+      }
+      dispatch(getAdminProduct());
+      dispatch(getAllOrders())
+      dispatch(getAllUsers())
+    },[dispatch,error,userError,allOrdersError])
+
     let outOfStock = 0 
     products && products.forEach(item => {
       if(item.stock === 0){
@@ -27,9 +43,6 @@ const AdminDashBoard = () => {
     })
 
     const totalAmount = 345324
-    const orders = []
-    const users = []
-
     const lineState = {
         labels: ["Initial Amount", "Amount Earned"],
         datasets: [
@@ -52,7 +65,8 @@ const AdminDashBoard = () => {
           },
         ],
       };
-  return (
+  return <Fragment>
+    { (loading || productLoading || userLoading) ? <Loader/> : (
     <div className="dashboard">
     <MetaData title="Dashboard - Admin Panel" />
     <Sidebar />
@@ -91,7 +105,8 @@ const AdminDashBoard = () => {
       </div>
     </div>
   </div>
-  )
+  )}
+  </Fragment>
 }
 
 export default AdminDashBoard

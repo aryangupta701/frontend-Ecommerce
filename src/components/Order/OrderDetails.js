@@ -1,16 +1,15 @@
 import React, { useEffect,Fragment } from 'react'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { clearErrors, orderDetails } from '../../actions/orderActions'
-import './OrderDeatils.css'
-import Loader from '../loader/Loader'
+import './OrderDetails.css'
+import Loader from '../layout/loader/Loader'
 import MetaData from '../layout/MetaData'
 import { Typography } from '@mui/material'
 
 const OrderDetails = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const alert = useAlert()
     const params = useParams()
 
@@ -22,7 +21,7 @@ const OrderDetails = () => {
             dispatch(clearErrors())
         }
         dispatch(orderDetails(params.id))
-    }, [error,alert,dispatch])
+    }, [error,alert,dispatch,params.id])
     
 
     return (

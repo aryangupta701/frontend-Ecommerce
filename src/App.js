@@ -23,7 +23,6 @@ import Cart from './components/cart/Cart.js'
 import Shipping from './components/cart/Shipping.js'
 import ConfirmOrder from './components/cart/ConfirmOrder.js'
 import axios from 'axios';
-import Payment from './components/cart/Payment.js'
 import ProtectedPayment from './components/cart/ProtectedPayment.js'
 import Success from './components/cart/Success.js'
 import MyOrders from './components/Order/MyOrders.js'
@@ -35,6 +34,11 @@ import About from './components/layout/About/About'
 import Contact from './components/layout/Contact/Contact.js'
 import NewProduct from './components/admin/NewProduct';
 import UpdateProduct from './components/admin/UpdateProduct.js'
+import OrderList from './components/admin/OrderList.js'
+import ProcessOrder from './components/admin/ProcessOrder';
+import UsersList from './components/admin/UsersList';
+import UpdateUser from './components/admin/UpdateUser.js';
+import ProductReviews from './components/admin/ProductReviews.js';
 
 function App() {
   // localStorage.clear()
@@ -51,9 +55,9 @@ function App() {
     })
     store.dispatch(loadUser())
     getStripeApiKey()
-  }, [store.dispatch])
+  }, [])
   // console.log(stripeApiKey)
-  const {isAuthenticated,user} = useSelector(state => state.user)
+  const {isAuthenticated} = useSelector(state => state.user)
   return( 
   <Router>
     <Header />
@@ -86,6 +90,11 @@ function App() {
         <Route exact path="/admin/product" element={<NewProduct />}/>
         <Route exact path="/admin/product/:id" element={<UpdateProduct />}/>
         <Route exact path="/admin/products" element={<ProductList />}/>
+        <Route exact path="/admin/orders" element={<OrderList />}/>
+        <Route exact path="/admin/order/:id" element={<ProcessOrder />}/>
+        <Route exact path="/admin/users" element={<UsersList />}/>
+        <Route exact path="/admin/user/:id" element={<UpdateUser />}/>
+        <Route exact path="/admin/reviews" element={<ProductReviews />}/>
       </Route>
     </Routes>
     <Footer />

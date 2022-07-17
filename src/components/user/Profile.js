@@ -2,7 +2,7 @@ import React,{Fragment, useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import MetaData from '../layout/MetaData'
 import { Link, useNavigate } from 'react-router-dom'
-import Loader from '../loader/Loader'
+import Loader from '../layout/loader/Loader'
 import "./Profile.css"
 const Profile = () => {
     const {user,loading,isAuthenticated} = useSelector(state => state.user)
