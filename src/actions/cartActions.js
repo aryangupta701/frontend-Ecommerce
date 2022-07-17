@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from "../components/axios/axios";
+
 import { ADD_TO_CART, CLEAR_CART_ITEMS, REMOVE_CART_ITEM,SAVE_SHIPPING_DETAILS } from "../constants/cartConstant";
 
 export const addItemsToCart= (product) => async(dispatch,getState) => {

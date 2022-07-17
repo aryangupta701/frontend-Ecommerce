@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from "../components/axios/axios";
+
 import { 
     SIGNUP_FAIL,
     LOGIN_FAIL,

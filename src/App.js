@@ -22,7 +22,7 @@ import ResetPassword from './components/user/ResetPassword.js'
 import Cart from './components/cart/Cart.js'
 import Shipping from './components/cart/Shipping.js'
 import ConfirmOrder from './components/cart/ConfirmOrder.js'
-import axios from 'axios';
+import axios from "./components/axios/axios";
 import ProtectedPayment from './components/cart/ProtectedPayment.js'
 import Success from './components/cart/Success.js'
 import MyOrders from './components/Order/MyOrders.js'
@@ -39,6 +39,7 @@ import ProcessOrder from './components/admin/ProcessOrder';
 import UsersList from './components/admin/UsersList';
 import UpdateUser from './components/admin/UpdateUser.js';
 import ProductReviews from './components/admin/ProductReviews.js';
+import NotFound from './components/layout/NotFound/NotFound';
 
 function App() {
   // localStorage.clear()
@@ -56,6 +57,7 @@ function App() {
     store.dispatch(loadUser())
     getStripeApiKey()
   }, [])
+  window.addEventListener("contextmenu" , e => e.preventDefault())
   // console.log(stripeApiKey)
   const {isAuthenticated} = useSelector(state => state.user)
   return( 
@@ -96,6 +98,7 @@ function App() {
         <Route exact path="/admin/user/:id" element={<UpdateUser />}/>
         <Route exact path="/admin/reviews" element={<ProductReviews />}/>
       </Route>
+      <Route path="*" element={<NotFound/>} />
     </Routes>
     <Footer />
    </Router> 

@@ -29,14 +29,16 @@ const ProductReviews = () => {
   );
 
   const [productId, setProductId] = useState("");
+  const [prodId , setProdId] = useState("")
 
   const deleteReviewHandler = (reviewId) => {
-    dispatch(deleteReviews(reviewId, productId));
+    dispatch(deleteReviews(reviewId, prodId));
   };
 
   const productReviewsSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(getAllReviews(productId));
+    setProdId(productId)
   };
 
   useEffect(() => {
@@ -55,7 +57,7 @@ const ProductReviews = () => {
       navigate("/admin/reviews");
       dispatch({ type: DELETE_REVIEW_RESET });
     }
-  }, [dispatch, alert, error, deleteError,navigate, isDeleted, productId]);
+  }, [dispatch, alert, error, deleteError,navigate, isDeleted]);
 
   const columns = [
     { field: "id", headerName: "Review ID", minWidth: 200, flex: 0.5 },

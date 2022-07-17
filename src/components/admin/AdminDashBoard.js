@@ -42,7 +42,11 @@ const AdminDashBoard = () => {
       }
     })
 
-    const totalAmount = 345324
+    let totalAmount = 0
+    orders &&
+    orders.forEach((item) => {
+      totalAmount += item.totalPrice;
+    });
     const lineState = {
         labels: ["Initial Amount", "Amount Earned"],
         datasets: [
