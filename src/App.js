@@ -1,6 +1,6 @@
 import './App.css';
 import Header from './components/layout/Header/Header.js';
-import {BrowserRouter as Router,Route,Routes} from 'react-router-dom';
+import {HashRouter as Router,Route,Routes} from 'react-router-dom';
 import webfont from 'webfontloader'
 import React, { useState } from 'react'
 import Footer from './components/layout/Footer/Footer.js';
@@ -61,7 +61,7 @@ function App() {
   // console.log(stripeApiKey)
   const {isAuthenticated} = useSelector(state => state.user)
   return( 
-  <Router >
+  <Router basename='frontend-Ecommerce'>
     <Header />
     {isAuthenticated && <UserOptions /> }
     <Routes >
