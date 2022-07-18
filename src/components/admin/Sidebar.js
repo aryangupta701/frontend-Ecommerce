@@ -1,10 +1,8 @@
-import { TreeItem, TreeView } from '@material-ui/lab'
 import React from 'react'
 import { FaListAlt } from 'react-icons/fa'
-import { FcAddDatabase, FcAddImage } from 'react-icons/fc'
-import { MdDashboard, MdExpandMore, MdImportExport, MdPeople, MdRateReview } from 'react-icons/md'
+import { FcAddDatabase } from 'react-icons/fc'
+import { MdDashboard, MdPeople, MdRateReview } from 'react-icons/md'
 import { Link } from 'react-router-dom'
-import logo from '../../images/logo.png'
 import './Sidebar.css'
 
 const Sidebar = () => {

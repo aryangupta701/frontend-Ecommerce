@@ -6,7 +6,7 @@ const ProtectedRoute = ({ isAdmin}) => {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
   if(loading === false) {
     if (isAuthenticated === false) {
-      console.log("hello")
+      // console.log("hello")
       return <Navigate to="/login" />;
     }
     if (isAdmin === true && user.role !== "admin") {

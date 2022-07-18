@@ -9,7 +9,7 @@ export const cartReducer =(
             }
             case ADD_TO_CART: 
             const item = action.payload
-            const isPresent = state.cartItems.find((i)=>i.id == item.id)
+            const isPresent = state.cartItems.find((i)=>i.id === item.id)
             if(!isPresent){
                 return {
                     ...state,
@@ -19,7 +19,7 @@ export const cartReducer =(
             return {
                 ...state, 
                 cartItems : state.cartItems.map((i)=>{
-                    if(i.id == item.id){
+                    if(i.id === item.id){
                         return item;
                     }
                     return i

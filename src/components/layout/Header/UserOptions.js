@@ -40,7 +40,7 @@ const UserOptions = () => {
       {icon: <MdShoppingCart style={{color: cartItems.length>0 ? "tomato" : "unset"}}/>, name:`Cart (${cartItems.length})` , func: cart},
       {icon: <MdExitToApp />, name:"Logout" , func: logoutUser}
     ]
-    if(user.role == "admin"){
+    if(user.role === "admin"){
       options.unshift({icon: <GoDashboard/>, name:"Dashboard" , func: dashboard})
     }
     // console.log(user.avatar.URL)
