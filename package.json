@@ -66,7 +66,8 @@
   },
   "devDependencies": {
     "gh-pages": "^4.0.0"
-  }
+  },
+  "proxy": "https://ecommerce-apiii-backenddd.herokuapp.com/"
 }
 
 
