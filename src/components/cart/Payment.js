@@ -8,7 +8,7 @@ import { BiCreditCard } from 'react-icons/bi'
 import { MdEvent, MdVpnKey } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from 'react-alert'
-import axios from 'axios'
+import axios from '../axios/axios'
 import { useNavigate } from 'react-router-dom'
 import { clearErrors, createOrder } from '../../actions/orderActions'
 import { clearCart } from '../../actions/cartActions'
@@ -65,6 +65,7 @@ const Payment = () => {
                 },
               },
             });
+            
 
               // console.log(result)
             if(result.error){
