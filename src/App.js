@@ -61,7 +61,7 @@ function App() {
   // console.log(stripeApiKey)
   const {isAuthenticated} = useSelector(state => state.user)
   return( 
-  <Router basename='frontend-Ecommerce'>
+  <Router >
     <Header />
     {isAuthenticated && <UserOptions /> }
     <Routes >
