@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React, { Fragment } from 'react'
 import { useAlert } from 'react-alert'
-import { MdRemoveShoppingCart, MdShoppingBasket } from 'react-icons/md'
+import { MdRemoveShoppingCart } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { addItemsToCart, removeCartItem } from '../../actions/cartActions'
@@ -18,13 +18,13 @@ const Cart = () => {
         alert.success("Removed Item Successfully")
     }
     const decreaseQuantity = (id,quantity,stock) => {
-        if(quantity == 1){
+        if(quantity === 1){
             return ;
         } 
         dispatch(addItemsToCart({id,quantity: quantity-1}))
     }
     const increaseQuantity = (id,quantity,stock) => {
-        if(quantity == stock) {
+        if(quantity === stock) {
             alert.success("Order Limit Reached !!")
             return ;
         } 

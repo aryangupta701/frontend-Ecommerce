@@ -1,7 +1,7 @@
 import React from "react";
 import "./aboutSection.css";
 import { Button, Typography, Avatar } from "@material-ui/core";
-import { CgInstagram, CgYoutube } from "react-icons/cg";
+import { CgInstagram } from "react-icons/cg";
 import { FaLinkedin } from "react-icons/fa";
 
 const About = () => {

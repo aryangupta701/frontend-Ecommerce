@@ -41,7 +41,7 @@ import { useNavigate } from "react-router-dom"
         alert.success("Password Changed Successfully")
         navigate("/account")
     }
-   },[dispatch,alert,error,isUpdated])
+   },[dispatch,alert,error,isUpdated,navigate])
 
    return (
        <Fragment>

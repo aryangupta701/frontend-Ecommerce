@@ -1,7 +1,7 @@
 import { Elements} from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Payment from './Payment';
-import React, { useState } from 'react'
+import React  from 'react'
 
 const ProtectedPayment = ({stripeKey}) => {
 

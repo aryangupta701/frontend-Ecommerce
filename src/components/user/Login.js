@@ -23,7 +23,7 @@ const Login = () => {
     // console.log(location)
     const redirect = location.search ? `/${location.search.split("=")[1]}` : "/account"
     const [avatar,setAvatar] = useState()
-    const [avatarPreview,setAvatarPreview] = useState("/profile.png")
+    const [avatarPreview,setAvatarPreview] = useState("https://res.cloudinary.com/dut5akeru/image/upload/v1658146312/My%20profile%20pics/profile_kfbgi6.png")
     useEffect(() => {
       if(error){
         alert.error(error)
